@@ -26,30 +26,7 @@ const NavbarReact = (props) => {
               <Link to="./home">Home </Link>
             </NavLink>
           </NavItem>
-
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              Category
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem>Option 1</DropdownItem>
-              <DropdownItem>Option 2</DropdownItem>
-              <DropdownItem>Reset</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-          <NavItem>
-            <NavLink style={{ display: "flex" }}>
-              <Input
-                type="text"
-                name=""
-                id="search"
-                placeholder="search country"
-              />
-              <Button type="button">Go</Button>
-            </NavLink>
-          </NavItem>
         </Nav>
-        <NavbarText>Simple Text</NavbarText>
       </Navbar>
     </div>
   );

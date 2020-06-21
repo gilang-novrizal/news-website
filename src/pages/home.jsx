@@ -40,6 +40,15 @@ class Home extends React.Component {
         { country: "united kingdom", code: "gb" },
         { country: "united states", code: "us" },
       ],
+      categories: [
+        "general",
+        "business",
+        "sports",
+        "technology",
+        "entertainment",
+        "health",
+        "science",
+      ],
     };
   }
   componentDidMount() {
@@ -78,41 +87,46 @@ class Home extends React.Component {
       );
     });
   }
+  categoryButton = () => {
+    return this.state.categories.map((item) => {
+      return (
+        <Button
+          type="button"
+          innerRef={(newscategory) => (this.newscategory = newscategory)}
+          onClick={() => this.renderCategory(item)}
+        >
+          {item.toUpperCase()}
+        </Button>
+      );
+    });
+  };
   renderCountry = () => {
     let newscount = this.newscountry.value;
     this.state.countries.map((item) =>
       item.country === newscount.toLowerCase() ? (country = item.code) : null
     );
   };
-  renderCategory = () => {
-    category = this.newscategory.value;
-    console.log(this.newscategory.value);
+  renderCategory = (item) => {
+    category = item;
+    console.log(item);
   };
   render() {
     return (
       <div>
-        <h1>This is home</h1>
-        <Input
-          type="text"
-          innerRef={(newscountry) => (this.newscountry = newscountry)}
-        ></Input>
-        <Button type="button" onClick={this.renderCountry}>
-          Search
-        </Button>
-        <Input
-          type="select"
-          innerRef={(newscategory) => (this.newscategory = newscategory)}
-          onChange={this.renderCategory}
-        >
-          <option value="">Category</option>
-          <option value="general">General</option>
-          <option value="business">Business</option>
-          <option value="sports">Sports</option>
-          <option value="technology">Technology</option>
-          <option value="entertainment">Entertainment</option>
-          <option value="health">Health</option>
-          <option value="science">Science</option>
-        </Input>
+        <div className="mb-5">
+          <Input
+            type="text"
+            innerRef={(newscountry) => (this.newscountry = newscountry)}
+            className="my-3"
+            placeholder="Search news by country"
+          ></Input>
+          <Button type="button" onClick={this.renderCountry}>
+            Search
+          </Button>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {this.categoryButton()}
+        </div>
 
         <div
           style={{
