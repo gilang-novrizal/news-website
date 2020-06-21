@@ -8,8 +8,6 @@ import {
   CardText,
   Button,
   Input,
-  FormGroup,
-  Label,
 } from "reactstrap";
 
 const url = "http://newsapi.org/v2/top-headlines?country=";
@@ -23,8 +21,25 @@ class Home extends React.Component {
     super(props);
     this.state = {
       data: [],
-      country: "id",
-      category: "general",
+      countries: [
+        { country: "argentina", code: "ar" },
+        { country: "indonesia", code: "id" },
+        { country: "australia", code: "au" },
+        { country: "brazil", code: "br" },
+        { country: "canada", code: "ca" },
+        { country: "china", code: "cn" },
+        { country: "colombia", code: "co" },
+        { country: "egypt", code: "eg" },
+        { country: "france", code: "fr" },
+        { country: "germany", code: "de" },
+        { country: "hong kong", code: "hk" },
+        { country: "india", code: "in" },
+        { country: "indonesia", code: "id" },
+        { country: "israel", code: "il" },
+        { country: "japan", code: "jp" },
+        { country: "united kingdom", code: "gb" },
+        { country: "united states", code: "us" },
+      ],
     };
   }
   componentDidMount() {
@@ -39,17 +54,14 @@ class Home extends React.Component {
     Axios.get(url + country + cat + category + key)
       .then((res) => {
         this.setState({ data: res.data.articles });
-        console.log(this.state.data);
+        // console.log(this.state.data);
       })
       .catch((err) => console.log(err));
   }
   renderCard() {
     return this.state.data.map((item) => {
       return (
-        <Card
-          style={{ flexBasis: "30%", background: "black", color: "white" }}
-          className="mb-5"
-        >
+        <Card style={{ flexBasis: "30%" }} className="mb-5">
           <CardImg
             height="250px"
             src={item.urlToImage}
@@ -66,6 +78,12 @@ class Home extends React.Component {
       );
     });
   }
+  renderCountry = () => {
+    let newscount = this.newscountry.value;
+    this.state.countries.map((item) =>
+      item.country === newscount.toLowerCase() ? (country = item.code) : null
+    );
+  };
   renderCategory = () => {
     category = this.newscategory.value;
     console.log(this.newscategory.value);
@@ -74,28 +92,35 @@ class Home extends React.Component {
     return (
       <div>
         <h1>This is home</h1>
-
+        <Input
+          type="text"
+          innerRef={(newscountry) => (this.newscountry = newscountry)}
+        ></Input>
+        <Button type="button" onClick={this.renderCountry}>
+          Search
+        </Button>
         <Input
           type="select"
           innerRef={(newscategory) => (this.newscategory = newscategory)}
+          onChange={this.renderCategory}
         >
+          <option value="">Category</option>
           <option value="general">General</option>
           <option value="business">Business</option>
           <option value="sports">Sports</option>
           <option value="technology">Technology</option>
           <option value="entertainment">Entertainment</option>
           <option value="health">Health</option>
-          <option value="sciece">Sciece</option>
+          <option value="science">Science</option>
         </Input>
-        <button type="button" onClick={this.renderCategory}>
-          GO
-        </button>
+
         <div
           style={{
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-around",
           }}
+          className="mt-5"
         >
           {this.renderCard()}
         </div>
