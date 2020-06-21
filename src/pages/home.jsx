@@ -105,6 +105,7 @@ class Home extends React.Component {
     this.state.countries.map((item) =>
       item.country === newscount.toLowerCase() ? (country = item.code) : null
     );
+    this.newscountry.value = "";
   };
   renderCategory = (item) => {
     category = item;
@@ -113,7 +114,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <div className="mb-5">
+        <div className="mb-3">
           <Input
             type="text"
             innerRef={(newscountry) => (this.newscountry = newscountry)}
@@ -124,7 +125,11 @@ class Home extends React.Component {
             Search
           </Button>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h2>News Category</h2>
+        <div
+          style={{ display: "flex", justifyContent: "space-between" }}
+          className="mt-3"
+        >
           {this.categoryButton()}
         </div>
 
